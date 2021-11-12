@@ -18,6 +18,7 @@ public class HealthCollectible : MonoBehaviour
                 Destroy(gameObject);
 
                 controller.PlaySound(collectedClip);
+                controller.healEffect.Play();
             }
         }
     }

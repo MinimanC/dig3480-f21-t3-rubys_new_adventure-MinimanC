@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class RubyController : MonoBehaviour
 {
@@ -23,9 +25,26 @@ public class RubyController : MonoBehaviour
 
     public GameObject projectilePrefab;
 
+    public static int level = 1;
+    bool oneComplete = false;
+
+    public Text score;
+    private int scoreValue = 0;
+    public Text winText;
+    bool gameOver = false;
+    public Text ammo;
+    private int ammoValue = 4;
+
     AudioSource audioSource;
     public AudioClip cogAudio;
     public AudioClip damage;
+    public AudioClip loseMusic;
+    public AudioClip winMusic;
+
+    public ParticleSystem healEffect;
+    public ParticleSystem damageEffect;
+
+    public GameObject backgroundAudio;
     
     // Start is called before the first frame update
     void Start()
@@ -36,6 +55,13 @@ public class RubyController : MonoBehaviour
         currentHealth = maxHealth;
 
         audioSource = GetComponent<AudioSource>();
+
+        score.text = "Score: " + scoreValue.ToString();
+        winText.text = "";
+        ammo.text = "Cogs: " + ammoValue.ToString();
+
+        gameOver = false;
+        oneComplete = false;
     }
 
     // Update is called once per frame
@@ -65,11 +91,17 @@ public class RubyController : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            Launch();
+            if (ammoValue > 0)
+            {
+                Launch();
 
-            audioSource.PlayOneShot(cogAudio);
+                audioSource.PlayOneShot(cogAudio);
+
+                ammoValue = ammoValue - 1;
+                ammo.text = "Cogs: " + ammoValue.ToString();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -80,7 +112,15 @@ public class RubyController : MonoBehaviour
                 NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
                 if (character != null)
                 {
-                    character.DisplayDialog();
+                    if (oneComplete == true)
+                    {
+                        level = level + 1;
+                        SceneManager.LoadScene("Scene2");
+                    }
+                    else
+                    {
+                        character.DisplayDialog();
+                    }
                 }
             }
         }
@@ -88,6 +128,14 @@ public class RubyController : MonoBehaviour
         if (Input.GetKey("escape"))
         {
             Application.Quit();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (gameOver == true)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 
@@ -114,10 +162,23 @@ public class RubyController : MonoBehaviour
             animator.SetTrigger("Hit");
 
             audioSource.PlayOneShot(damage);
+            damageEffect.Play();
         }
         
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
+
+        if (currentHealth <= 0)
+        {
+            winText.text = "You Lost! Press R to restart.";
+            gameOver = true;
+            rigidbody2d.simulated = false;
+
+            AudioSource background = backgroundAudio.GetComponent<AudioSource>();
+
+            background.clip = loseMusic;
+            background.Play();
+        }
     }
 
     void Launch()
@@ -133,5 +194,34 @@ public class RubyController : MonoBehaviour
     public void PlaySound(AudioClip clip)
     {
         audioSource.PlayOneShot(clip);
+    }
+
+    public void SetCount()
+    {
+        scoreValue = scoreValue + 1;
+        score.text = "Score: " + scoreValue.ToString();
+
+        if (scoreValue >= 4)
+        {
+            if (level == 2)
+            {
+                winText.text = "You Win! Came created by Casey Temple";
+                gameOver = true;
+                AudioSource background = backgroundAudio.GetComponent<AudioSource>();
+            
+                background.clip = winMusic;
+                background.Play();
+            }
+            else
+            {
+                oneComplete = true;
+            }
+        }
+    }
+
+    public void ChangeAmmo(int amount)
+    {
+        ammoValue = ammoValue + amount;
+        ammo.text = "Cogs: " + ammoValue.ToString();
     }
 }

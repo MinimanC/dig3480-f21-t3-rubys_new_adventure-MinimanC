@@ -12,11 +12,11 @@ GameObject:
   - component: {fileID: 4190585625119229425}
   - component: {fileID: 4190585625119229426}
   - component: {fileID: 4190585625119229427}
-  - component: {fileID: 4190585625119229428}
   - component: {fileID: 6797016139851877844}
   - component: {fileID: -2394688898302760785}
+  - component: {fileID: 5382464989469869175}
   m_Layer: 0
-  m_Name: MrClockwork
+  m_Name: HardRobot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300026, guid: 651c4abeb0812e74685da0e5a31c8dff, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.9622642, g: 0.26990336, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -135,23 +135,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.28373682, y: 0.63025165}
   m_EdgeRadius: 0
---- !u!114 &4190585625119229428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4190585625119229429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faacc648ad25d3b4982386a0a69873b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 2
-  vertical: 0
-  changeTime: 3
-  score: {fileID: 0}
-  smokeEffect: {fileID: 6949378202756077822}
 --- !u!95 &6797016139851877844
 Animator:
   serializedVersion: 3
@@ -267,6 +250,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5382464989469869175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4190585625119229429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a052bf9e033dd44a4abd3126fbdea5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  vertical: 0
+  changeTime: 3
+  smokeEffect: {fileID: 6949378202756077822}
 --- !u!1001 &7907995184838436812
 PrefabInstance:
   m_ObjectHideFlags: 0
