@@ -107,12 +107,15 @@ MonoBehaviour:
     type: 3}
   score: {fileID: 0}
   winText: {fileID: 0}
+  ammo: {fileID: 0}
   cogAudio: {fileID: 8300000, guid: 11241248fbfb2e8428e21ed55ff762e3, type: 3}
   damage: {fileID: 8300000, guid: e7014cf75e5711f4a9b07c5deebe7044, type: 3}
   loseMusic: {fileID: 8300000, guid: 060526c1d2622be45bbd9a555f9f9e68, type: 3}
   winMusic: {fileID: 8300000, guid: 474dc4758ecaa0b45afe5889e1f2d5d9, type: 3}
+  scoreAudio: {fileID: 8300000, guid: 68981786b70e8ac47b9a6d61ce0f3b54, type: 3}
   healEffect: {fileID: 8933850072676345614}
   damageEffect: {fileID: 5548389648121485002}
+  backgroundAudio: {fileID: 0}
 --- !u!50 &2689805184877445950
 Rigidbody2D:
   serializedVersion: 4

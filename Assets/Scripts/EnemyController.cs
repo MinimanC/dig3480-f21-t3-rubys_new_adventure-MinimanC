@@ -12,6 +12,9 @@ public class EnemyController : MonoBehaviour
     float timer;
     int direction = 1;
 
+    AudioSource audioSource;
+    public AudioClip damageAudio;
+    
     Animator animator;
 
     bool broken = true;
@@ -24,6 +27,7 @@ public class EnemyController : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         timer = changeTime;
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -85,6 +89,7 @@ public class EnemyController : MonoBehaviour
         broken = false;
         rigidbody2D.simulated = false;
         smokeEffect.Stop();
+        audioSource.PlayOneShot(damageAudio);
 
         rubyController.SetCount();
     }

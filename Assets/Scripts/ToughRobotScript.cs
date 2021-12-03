@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HardEnemyController : MonoBehaviour
+public class ToughRobotScript : MonoBehaviour
 {
     public float speed;
     public bool vertical;
@@ -11,10 +11,11 @@ public class HardEnemyController : MonoBehaviour
     Rigidbody2D rigidbody2D;
     float timer;
     int direction = 1;
+    public int health = 2;
 
     AudioSource audioSource;
     public AudioClip damageAudio;
-
+    
     Animator animator;
 
     bool broken = true;
@@ -77,7 +78,7 @@ public class HardEnemyController : MonoBehaviour
 
         if (player != null)
         {
-            player.ChangeHealth(-2);
+            player.ChangeHealth(-1);
         }
     }
 
@@ -86,11 +87,16 @@ public class HardEnemyController : MonoBehaviour
         GameObject ruby = GameObject.FindWithTag("Player");
         RubyController rubyController = ruby.GetComponent<RubyController>();
         
-        broken = false;
-        rigidbody2D.simulated = false;
-        smokeEffect.Stop();
+        health = health - 1;
         audioSource.PlayOneShot(damageAudio);
+        
+        if (health <= 0)
+        {
+            broken = false;
+            rigidbody2D.simulated = false;
+            smokeEffect.Stop();
 
-        rubyController.SetCount();
+            rubyController.SetCount();
+        }
     }
 }

@@ -34,12 +34,14 @@ public class RubyController : MonoBehaviour
     bool gameOver = false;
     public Text ammo;
     private int ammoValue = 4;
+    private int sideQuest = 0;
 
     AudioSource audioSource;
     public AudioClip cogAudio;
     public AudioClip damage;
     public AudioClip loseMusic;
     public AudioClip winMusic;
+    public AudioClip scoreAudio;
 
     public ParticleSystem healEffect;
     public ParticleSystem damageEffect;
@@ -112,12 +114,20 @@ public class RubyController : MonoBehaviour
                 NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
                 if (character != null)
                 {
-                    if (oneComplete == true)
+                    if (character.tag == "Jambi")
                     {
-                        level = level + 1;
-                        SceneManager.LoadScene("Scene2");
+                        if (oneComplete == true)
+                        {
+                            level = level + 1;
+                            SceneManager.LoadScene("Scene2");
+                        }
+                        else
+                        {
+                            character.DisplayDialog();
+                        }
                     }
-                    else
+
+                    if (character.tag == "Cat")
                     {
                         character.DisplayDialog();
                     }
@@ -200,10 +210,33 @@ public class RubyController : MonoBehaviour
     {
         scoreValue = scoreValue + 1;
         score.text = "Score: " + scoreValue.ToString();
+        audioSource.PlayOneShot(scoreAudio);
 
         if (scoreValue >= 4)
         {
-            if (level == 2)
+            if (level == 2 && sideQuest >= 1)
+            {
+                winText.text = "You Win! Came created by Casey Temple";
+                gameOver = true;
+                AudioSource background = backgroundAudio.GetComponent<AudioSource>();
+            
+                background.clip = winMusic;
+                background.Play();
+            }
+            else
+            {
+                oneComplete = true;
+            }
+        }
+    }
+
+    public void SideQuest()
+    {
+        sideQuest = sideQuest + 1;
+
+        if (scoreValue >= 4)
+        {
+            if (level == 2 && sideQuest >= 1)
             {
                 winText.text = "You Win! Came created by Casey Temple";
                 gameOver = true;

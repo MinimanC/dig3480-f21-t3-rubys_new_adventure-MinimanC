@@ -30,6 +30,7 @@ public class Projectile : MonoBehaviour
     {
         EnemyController e = other.collider.GetComponent<EnemyController>();
         HardEnemyController he = other.collider.GetComponent<HardEnemyController>();
+        ToughRobotScript te = other.collider.GetComponent<ToughRobotScript>();
         if (e != null)
         {
             e.Fix();
@@ -38,6 +39,11 @@ public class Projectile : MonoBehaviour
         if (he != null)
         {
             he.Fix();
+        }
+
+        if (te != null)
+        {
+            te.Fix();
         }
         
         Destroy(gameObject);

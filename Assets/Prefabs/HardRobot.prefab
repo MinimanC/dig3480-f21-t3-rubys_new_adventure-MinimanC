@@ -265,6 +265,7 @@ MonoBehaviour:
   speed: 3
   vertical: 0
   changeTime: 3
+  damageAudio: {fileID: 8300000, guid: 42cc3ca5e4f14bd4aaf25b47b31b5487, type: 3}
   smokeEffect: {fileID: 6949378202756077822}
 --- !u!1001 &7907995184838436812
 PrefabInstance:
